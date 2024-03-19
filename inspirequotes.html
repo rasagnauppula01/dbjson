@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inspirational Quote Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="quote">Inspirational Quote Generator</div>
+<button id="new-quote-btn">New Quote</button>
+
+<script>
+  const quoteElement = document.getElementById("quote");
+  const newQuoteBtn = document.getElementById("new-quote-btn");
+
+// An API often refers to a set of endpoints exposed by a web server 
+// that allows developers to interact with its functionality and data. 
+// This interaction typically happens over the HTTP protocol, 
+// where requests are made to specific URLs (endpoints), and responses are returned in a structured format, such as JSON or XML.
+
+  newQuoteBtn.addEventListener("click", getQuote);
+// the addEventListener() method to attach a click event to a button.
+
+  function getQuote() {
+//fetch is a predefined method in JAVASCRIPT which is used to send https request
+    fetch("http://localhost:3000/insp")
+      .then((response) => response.json())
+      .then((data) => {                      
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const { text, author } = data[randomIndex];
+        displayQuote(text, author);
+      })
+      .catch((error) => {
+        console.log("Error fetching quote:", error);
+      });
+  }
+
+  function displayQuote(text, author) {
+// Remove "type.fit" from the author's name if it exists
+    const cleanedAuthor = author.split(",").splice(0,1,"type.fit").join("");
+
+// The innerHTML property can be used to get or change any HTML element, including <html> and <body>.
+    quoteElement.innerHTML = `
+      <p>${text}</p>
+      <p>- ${cleanedAuthor}</p>
+    `;
+  }
+</script>
+</body>
+</html>

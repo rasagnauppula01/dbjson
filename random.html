@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Random Quote Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="quote">Random Quote Generator</div>
+<button id="new-quote-btn">New Quote</button>
+
+<script>
+  const quoteElement = document.getElementById("quote");
+const newQuoteBtn = document.getElementById("new-quote-btn");
+
+newQuoteBtn.addEventListener("click", getQuote);
+
+function getQuote() {
+  fetch("http://localhost:3000/random")
+    .then((response) => response.json())
+    .then((data) => {
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const { text, author } = data[randomIndex];
+      displayQuote(text, author);
+    })
+    .catch((error) => {
+      console.log("Error fetching quote:", error);
+    });
+}
+
+function displayQuote(text, author) {
+  quoteElement.innerHTML = `
+    <p>${text}</p>
+    <p>${author}</p>
+  `;
+}
+</script>
+</body>
+</html>

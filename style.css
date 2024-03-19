@@ -1,0 +1,40 @@
+body {
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    background-color:white;
+}
+
+#quote {
+    max-width: 600px;
+    padding: 50px;
+    margin: auto;
+    margin-top: 15%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50px;
+    box-shadow: 5px 5px 25px 6px green;
+    color: black;
+    font-size: larger;
+  }
+
+#quote p {
+    margin: 0;
+}
+
+#new-quote-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color:aliceblue;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-family: 'Fuggles', cursive;
+}
+
+#new-quote-btn:hover {
+    background-color:green;
+    color: white;
+
+}
