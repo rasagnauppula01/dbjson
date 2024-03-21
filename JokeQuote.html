@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,50 +43,3 @@
 </body>
 </html>
 
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Quotes</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="quote">Jokes Quote Generator</div>
-    <button id="new-quote-btn">New Quote</button>
-    <script>
-        const quoteElement = document.getElementById("quote");
-        const newQuoteBtn = document.getElementById("new-quote-btn");
-
-        newQuoteBtn.addEventListener("click", getInspirationalQuote);
-
-        async function getInspirationalQuote() {
-            try {
-                const response = await fetch("http://localhost:3000/joke");
-                const data = await response.json();
-                
-                if (!Array.isArray(data) || data.length === 0) {
-                    throw new Error("Invalid data format or empty array.");
-                }
-
-                const randomIndex = Math.floor(Math.random() * data.length);
-                const randomQuote = data[randomIndex];
-                displayQuote(randomQuote.text, randomQuote.author);
-            } catch (error) {
-                console.error("Error:", error);
-                quoteElement.innerHTML = "Failed to fetch inspirational quote.";
-            }
-        }
-
-        function displayQuote(text, author) {
-            quoteElement.innerHTML = `
-          <p>${text}</p>
-          <p>- ${author}</p>
-        `;
-        }
-    </script>
-</body>
-</html>
-
->>>>>>> 460e78d69bb6cbedd87fa8db349da3a4ea3b80af
