@@ -1,87 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quote Categories</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quote Categories</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: -20px;
+        background-color: #f4f4f4;
+      }
 
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    /* padding: 20px; */
-    padding-top: 170px;
-  }
+      .container {
+        max-width: 750px;
+        width: 80%;
+        margin: 170px auto;
+      }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
+      h1,
+      h3 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: "Dancing Script", cursive;
+      }
 
-  .category-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
+      .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        width: auto;
+      }
 
-  .category-list li {
-    margin: 0 10px;
-  }
+      .category-list li {
+        margin: 0 10px;
+      }
 
-  .category-list li a {
-    text-decoration: none;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
+      .category-list li a {
+        text-decoration: none;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border-radius: 5px;
+        transition: background-color 0.5s ease;
+        width: 40%;
+      }
 
-  .category-list li a:hover {
-    background-color: #45a049;
-  }
+      .category-list li a:hover {
+        /* background-color: #45a049; */
+        background-color: orange;
+      }
 
-  .quote-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 50px;
-    box-shadow: 5px 5px 25px 6px orangered;
-  }
+      .quote-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 50px;
+        box-shadow: 5px 5px 25px 6px orangered;
+      }
 
-  .quote-text {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
+      .quote-text {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
 
-  .quote-author {
-    text-align: right;
-    font-style: italic;
-  }
-</style>
-</head>
-<body>
+      .quote-author {
+        text-align: right;
+        font-style: italic;
+      }
+/* Media queries are used to adjust the layout for screens with a maximum width of 320 pixels. */
+      @media screen and (max-width: 320px) {
+        .container {
+          margin: 140px auto;
+        }
+        .category-list {
+          flex-direction: column;
+          align-items: center;
+        }
+        .category-list > li {
+          margin-bottom: 5px;
+          margin: 10px 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Quote Generator</h1>
+      <h3>Quote Categories</h3>
 
-<div class="container">
-  <h1>Quote Categories</h1>
-  
-  <ul class="category-list">
-    <li><a href="./JokeQuote.html" class="category-link" data-category="jokes">Jokes</a></li>
-    <li><a href="./random.html" class="category-link" data-category="random">Random</a></li>
-    <li><a href="./inspirequotes.html" class="category-link" data-category="inspirational">Inspirational</a></li>
-  </ul>
+      <ul class="category-list">
+        <li>
+          <a href="#" class="category-link" data-category="jokes">Jokes</a>
+        </li>
+        <li>
+          <a href="#" class="category-link" data-category="random">Random</a>
+        </li>
+        <li>
+          <a href="#" class="category-link" data-category="inspirational"
+            >Inspirational</a
+          >
+        </li>
+      </ul>
 
-  <div class="quote-container">
-    <p class="quote-text">Click on a category to get a quote.</p>
-  </div>
-</div>
-</body>
+      <div class="quote-container" id="quote-container">
+        <p class="quote-text">Click on a category to get a quote.</p>
+      </div>
+    </div>
+
+    <script>
+      const categoryLinks = document.querySelectorAll(".category-link");  //document.querySelectorAll() selects all elements with the class "category-link" and stores them in categoryLinks.
+      const quoteContainer = document.getElementById("quote-container");
+      let listItem = document.getElementsByClassName("category-link");
+
+      categoryLinks.forEach((link) => {
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          const category = this.getAttribute("data-category");
+          getQuote(category);
+        });
+      });
+
+      function getQuote(category) {
+        let apiUrl = "";
+        if (category === "jokes") {
+          apiUrl = "https://backend-1-a7ah.onrender.com/joke";
+          listItem[0].style.backgroundColor = "red";
+          listItem[1].style.backgroundColor = "green";
+          listItem[2].style.backgroundColor = "green";
+          quoteContainer.style.boxShadow = "5px 5px 25px 6px coral";
+        } else if (category === "random") {
+          apiUrl = "https://backend-1-a7ah.onrender.com/random";
+          listItem[0].style.backgroundColor = "green";
+          listItem[1].style.backgroundColor = "red";
+          listItem[2].style.backgroundColor = "green";
+        } else if (category === "inspirational") {
+          apiUrl = "https://backend-1-a7ah.onrender.com/insp";
+          listItem[0].style.backgroundColor = "green";
+          listItem[1].style.backgroundColor = "green";
+          listItem[2].style.backgroundColor = "red";
+        }
+//The fetch() API is used to retrieve data from the specified URL asynchronously.
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const randomIndex = Math.floor(Math.random() * data.length);   //Generates a random integer index within the range of the data array length.
+            const { text, author } = data[randomIndex];
+            displayQuote(text, author);
+          })
+          .catch((error) => {
+            console.log("Error fetching quote:", error);
+            displayQuote("Failed to fetch quote.", "Unknown");
+          });
+      }
+// The displayQuote() function updates the HTML content of the quote container with the fetched quote and author
+      function displayQuote(text, author) {
+        quoteContainer.innerHTML = `
+            <p class="quote-text">${text}</p>
+            <p class="quote-author">- ${author}</p>
+        `;
+      }
+    </script>
+  </body>
 </html>
